@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>استعلام عن القسيمة</title>
+  <title>استعلام عن القسائم</title>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
   <style>
@@ -14,7 +14,6 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100%;
-      color: #333;
     }
 
     * {
@@ -22,238 +21,209 @@
     }
 
     .container {
-      max-width: 600px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
       min-height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
     }
 
     .card {
       background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(15px);
-      border-radius: 25px;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-      padding: 40px;
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      padding: 30px;
       margin-bottom: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .glass-card {
       background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(15px);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      padding: 30px;
-      color: white;
-      text-align: center;
-    }
-
-    .header {
-      margin-bottom: 40px;
-    }
-
-    .header h1 {
-      font-size: 2.8rem;
-      margin: 0 0 15px 0;
-      color: #333;
-      font-weight: 700;
-    }
-
-    .header p {
-      color: #666;
-      margin: 0;
-      font-size: 1.2rem;
-      font-weight: 400;
-    }
-
-    .search-icon {
-      font-size: 4rem;
-      margin-bottom: 20px;
-      color: #667eea;
-    }
-
-    .input-group {
-      margin-bottom: 30px;
-    }
-
-    .input-label {
-      display: block;
-      margin-bottom: 15px;
-      font-weight: 600;
-      color: #495057;
-      font-size: 1.1rem;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 20px;
-      border: 3px solid #e9ecef;
       border-radius: 15px;
-      font-size: 1.3rem;
-      text-align: center;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      background: rgba(255, 255, 255, 0.9);
-      direction: ltr;
-    }
-
-    .form-input:focus {
-      outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 5px rgba(102, 126, 234, 0.1);
-      transform: translateY(-2px);
+      padding: 20px;
+      color: white;
     }
 
     .btn {
-      padding: 18px 40px;
+      padding: 12px 24px;
       border: none;
-      border-radius: 15px;
-      font-weight: 700;
+      border-radius: 10px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      font-size: 1.2rem;
+      font-size: 16px;
       text-decoration: none;
       display: inline-block;
       text-align: center;
-      width: 100%;
     }
 
     .btn-primary {
       background: linear-gradient(45deg, #667eea, #764ba2);
       color: white;
-      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
     }
 
     .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
     }
 
     .btn-secondary {
-      background: rgba(255, 255, 255, 0.9);
+      background: #f8f9fa;
       color: #495057;
       border: 2px solid #dee2e6;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
     .btn-secondary:hover {
-      background: #f8f9fa;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      background: #e9ecef;
+      transform: translateY(-1px);
     }
 
-    .voucher-code {
-      font-size: 4rem;
-      font-weight: 900;
-      color: #667eea;
-      margin: 30px 0;
-      padding: 25px;
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-      border-radius: 20px;
-      border: 3px dashed #667eea;
-      letter-spacing: 8px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    .input-group {
+      margin-bottom: 20px;
     }
 
-    .customer-info {
-      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-      padding: 25px;
-      border-radius: 15px;
-      margin: 25px 0;
-    }
-
-    .customer-info h3 {
-      margin: 0 0 15px 0;
-      color: #495057;
-      font-size: 1.3rem;
-    }
-
-    .info-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    .info-item:last-child {
-      border-bottom: none;
-    }
-
-    .info-label {
+    .input-label {
+      display: block;
+      margin-bottom: 8px;
       font-weight: 600;
-      color: #6c757d;
+      color: #495057;
     }
 
-    .info-value {
-      font-weight: 700;
-      color: #333;
+    .form-input {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.9);
     }
 
-    .amount-cards {
+    .form-input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
       gap: 20px;
-      margin: 30px 0;
     }
 
-    .amount-card {
+    .grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .stats-card {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
       padding: 25px;
       border-radius: 15px;
       text-align: center;
-      color: white;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
     }
 
-    .amount-card.used {
-      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    .stats-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 5px;
     }
 
-    .amount-card.remaining {
-      background: linear-gradient(135deg, #51cf66, #40c057);
-    }
-
-    .amount-number {
-      font-size: 2.2rem;
-      font-weight: 900;
-      margin-bottom: 8px;
-    }
-
-    .amount-label {
-      font-size: 0.95rem;
+    .stats-label {
+      font-size: 0.9rem;
       opacity: 0.9;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .table th {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 15px;
+      text-align: right;
       font-weight: 600;
+    }
+
+    .table td {
+      padding: 15px;
+      border-bottom: 1px solid #f8f9fa;
+    }
+
+    .table tr:hover {
+      background: rgba(102, 126, 234, 0.05);
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .header p {
+      color: rgba(255, 255, 255, 0.9);
+      margin: 10px 0 0 0;
+      font-size: 1.1rem;
     }
 
     .alert {
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 25px;
-      border-left: 5px solid;
-      font-weight: 600;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border-left: 4px solid;
     }
 
     .alert-error {
-      background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+      background: #f8d7da;
       color: #721c24;
       border-left-color: #dc3545;
     }
 
     .alert-success {
-      background: linear-gradient(135deg, #d4edda, #c3e6cb);
+      background: #d4edda;
       color: #155724;
       border-left-color: #28a745;
     }
 
     .loading {
       display: inline-block;
-      width: 24px;
-      height: 24px;
-      border: 4px solid rgba(255, 255, 255, 0.3);
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
       border-radius: 50%;
       border-top-color: white;
       animation: spin 1s ease-in-out infinite;
@@ -263,45 +233,165 @@
       to { transform: rotate(360deg); }
     }
 
-    .fade-in {
-      animation: fadeIn 0.6s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { 
-        opacity: 0; 
-        transform: translateY(30px); 
-      }
-      to { 
-        opacity: 1; 
-        transform: translateY(0); 
-      }
-    }
-
     .hidden {
       display: none !important;
     }
 
-    .no-voucher {
-      text-align: center;
-      padding: 50px 20px;
-      color: #6c757d;
-    }
-
-    .no-voucher-icon {
-      font-size: 5rem;
-      margin-bottom: 20px;
-      opacity: 0.5;
-    }
-
-    .business-name {
-      margin-top: 30px;
-      padding: 20px;
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    .voucher-card {
+      background: white;
       border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border-left: 5px solid #667eea;
+      transition: all 0.3s ease;
+    }
+
+    .voucher-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .voucher-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .voucher-code {
+      font-size: 1.5rem;
+      font-weight: bold;
       color: #667eea;
+    }
+
+    .voucher-status {
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
       font-weight: 600;
+    }
+
+    .status-active {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .status-used {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .voucher-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .detail-item {
+      text-align: center;
+    }
+
+    .detail-label {
+      font-size: 0.9rem;
+      color: #6c757d;
+      margin-bottom: 5px;
+    }
+
+    .detail-value {
       font-size: 1.1rem;
+      font-weight: 600;
+      color: #495057;
+    }
+
+    .orders-section {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #e9ecef;
+    }
+
+    .orders-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .order-item {
+      background: #f8f9fa;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .order-info {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .order-amount {
+      font-weight: 600;
+      color: #dc3545;
+    }
+
+    .search-section {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      color: white;
+    }
+
+    .search-methods {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .search-method {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .search-method:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .search-method.active {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-method-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .search-method-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .search-method-desc {
+      font-size: 0.9rem;
+      opacity: 0.8;
     }
 
     /* Responsive Design */
@@ -311,37 +401,43 @@
       }
 
       .card {
-        padding: 25px;
-        border-radius: 20px;
+        padding: 20px;
+        border-radius: 15px;
       }
 
       .header h1 {
-        font-size: 2.2rem;
+        font-size: 2rem;
       }
 
-      .voucher-code {
-        font-size: 2.8rem;
-        letter-spacing: 4px;
-        padding: 20px;
+      .stats-number {
+        font-size: 2rem;
       }
 
-      .amount-cards {
+      .grid-2, .grid-3 {
         grid-template-columns: 1fr;
-        gap: 15px;
       }
 
-      .amount-number {
-        font-size: 1.8rem;
-      }
-
-      .form-input {
-        padding: 15px;
-        font-size: 1.1rem;
+      .table th, .table td {
+        padding: 10px 8px;
+        font-size: 14px;
       }
 
       .btn {
-        padding: 15px 30px;
-        font-size: 1.1rem;
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+
+      .voucher-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .voucher-code {
+        font-size: 1.3rem;
+      }
+
+      .search-methods {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -350,27 +446,35 @@
         padding: 10px;
       }
 
-      .card {
-        padding: 20px;
+      .card, .search-section {
+        padding: 15px;
       }
 
       .header h1 {
-        font-size: 1.9rem;
+        font-size: 1.8rem;
       }
 
-      .voucher-code {
-        font-size: 2.2rem;
-        letter-spacing: 2px;
+      .form-input {
+        padding: 12px;
       }
 
-      .customer-info {
-        padding: 20px;
+      .voucher-details {
+        grid-template-columns: 1fr;
       }
+    }
 
-      .info-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
+    @media print {
+      body {
+        background: white !important;
+      }
+      
+      .search-section, .btn {
+        display: none !important;
+      }
+      
+      .card {
+        box-shadow: none;
+        border: 1px solid #ddd;
       }
     }
   </style>
@@ -380,9 +484,81 @@
   <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
  </head>
  <body>
-  <div id="app"></div>
+  <div class="container fade-in">
+   <div class="header">
+    <h1>استعلام عن القسائم</h1>
+    <p>ابحث عن قسائمك باستخدام رمز القسيمة أو رقم الهاتف</p>
+   </div>
+   <div class="search-section">
+    <div class="search-methods">
+     <div class="search-method active" data-method="code">
+      <div class="search-method-icon">
+       🎫
+      </div>
+      <div class="search-method-title">
+       البحث برمز القسيمة
+      </div>
+      <div class="search-method-desc">
+       ادخل رمز القسيمة المكون من 4 أرقام
+      </div>
+     </div>
+     <div class="search-method" data-method="phone">
+      <div class="search-method-icon">
+       📱
+      </div>
+      <div class="search-method-title">
+       البحث برقم الهاتف
+      </div>
+      <div class="search-method-desc">
+       ادخل رقم الهاتف لعرض جميع القسائم
+      </div>
+     </div>
+    </div>
+    <div id="searchForm">
+     <div class="input-group"><label class="input-label" id="searchLabel">رمز القسيمة</label> <input type="text" id="searchInput" class="form-input" placeholder="اكتب رمز القسيمة هنا" style="text-align: center; font-size: 1.2rem; font-weight: bold;">
+     </div><button id="searchBtn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem;"> بحث </button>
+     <div id="errorMsg" class="hidden"></div>
+    </div>
+   </div>
+   <div id="resultsSection" class="hidden">
+    <div class="card">
+     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+      <h2 style="margin: 0; color: #495057;" id="resultsTitle">نتائج البحث</h2><button id="printBtn" class="btn btn-primary">🖨️ طباعة</button>
+     </div>
+     <div id="statsSection" class="hidden">
+      <div class="grid grid-3" style="margin-bottom: 30px;">
+       <div class="stats-card">
+        <div class="stats-number" id="totalVouchers">
+         0
+        </div>
+        <div class="stats-label">
+         عدد القسائم
+        </div>
+       </div>
+       <div class="stats-card" style="background: linear-gradient(135deg, #51cf66, #40c057);">
+        <div class="stats-number" id="totalValue">
+         0
+        </div>
+        <div class="stats-label">
+         إجمالي القيمة (د.ك)
+        </div>
+       </div>
+       <div class="stats-card" style="background: linear-gradient(135deg, #ff6b6b, #ee5a52);">
+        <div class="stats-number" id="totalUsed">
+         0
+        </div>
+        <div class="stats-label">
+         المبلغ المستخدم (د.ك)
+        </div>
+       </div>
+      </div>
+     </div>
+     <div id="vouchersContainer"></div>
+    </div>
+   </div><button id="newSearchBtn" class="btn btn-secondary hidden" style="width: 100%; margin-top: 20px;"> بحث جديد </button>
+  </div>
   <script>
-    // Firebase Configuration
+    // Firebase Configuration with proper security rules
     const firebaseConfig = {
       apiKey: "AIzaSyBIP8ezD990c7kZ3z-gsma2KJpp7Zqu7eA",
       authDomain: "ishtrakta.firebaseapp.com",
@@ -394,7 +570,7 @@
       measurementId: "G-QT71DGNRXT"
     };
 
-    // Initialize Firebase
+    // Initialize Firebase with error handling
     let database = null;
     let firebaseInitialized = false;
 
@@ -406,14 +582,6 @@
       console.warn('Firebase initialization failed, using local storage:', error);
       firebaseInitialized = false;
     }
-
-    // Default Configuration
-    const defaultConfig = {
-      app_title: "استعلام عن القسيمة",
-      business_name: "مخبز التين والزيتون، و مطعم التين الطبيعي"
-    };
-
-    let config = { ...defaultConfig };
 
     // Local Storage Fallback
     const STORAGE_KEY = 'vouchers_data';
@@ -427,8 +595,8 @@
     }
 
     // State Management
-    let currentView = 'search';
-    let currentVoucher = null;
+    let currentSearchMethod = 'code';
+    let searchResults = [];
 
     // Utility Functions
     function convertArabicToEnglish(str) {
@@ -440,12 +608,13 @@
         result = result.replace(new RegExp(arabic, 'g'), englishNumbers[index]);
       });
       
+      result = result.replace(/،/g, '.');
       return result;
     }
 
     function formatDate(timestamp) {
       const date = new Date(timestamp);
-      return date.toLocaleDateString('ar-SA', {
+      return date.toLocaleDateString('ar-EG', {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
@@ -454,196 +623,317 @@
       });
     }
 
-    // Data Operations
-    async function getVoucherByPhone(phone) {
-      try {
-        if (firebaseInitialized) {
-          const snapshot = await database.ref('vouchers').once('value');
-          let foundVoucher = null;
-          
-          snapshot.forEach(child => {
-            const voucher = child.val();
-            if (voucher.phone === phone) {
-              foundVoucher = voucher;
-            }
-          });
-          
-          return foundVoucher;
-        } else {
-          const data = getLocalData();
-          return Object.values(data).find(voucher => voucher.phone === phone) || null;
-        }
-      } catch (error) {
-        console.warn('Firebase read failed, using localStorage:', error);
-        const data = getLocalData();
-        return Object.values(data).find(voucher => voucher.phone === phone) || null;
-      }
-    }
-
-    // Render Functions
-    function renderSearch() {
-      return `
-        <div class="container fade-in">
-          <div class="card">
-            <div class="header">
-              <div class="search-icon">🔍</div>
-              <h1 id="app-title">${config.app_title}</h1>
-              <p>ادخل رقم هاتفك للاستعلام عن قسيمتك</p>
-            </div>
-            
-            <div class="input-group">
-              <label class="input-label">رقم الهاتف</label>
-              <input 
-                type="text" 
-                id="phoneInput"
-                class="form-input"
-                placeholder="مثال: 99887766"
-                maxlength="8"
-              />
-            </div>
-            
-            <button 
-              id="searchBtn"
-              class="btn btn-primary hidden"
-            >
-              البحث عن القسيمة
-            </button>
-            
-            <div id="errorMsg" class="hidden"></div>
-            
-            <div class="business-name">
-              ${config.business_name}
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderVoucherDetails(voucher) {
-      return `
-        <div class="container fade-in">
-          <div class="card">
-            <button id="backBtn" class="btn btn-secondary" style="width: auto; margin-bottom: 30px;">
-              ← البحث عن قسيمة أخرى
-            </button>
-            
-            <div class="header">
-              <h1>تفاصيل القسيمة</h1>
-            </div>
-            
-            <div class="customer-info">
-              <h3>معلومات الزبون</h3>
-              <div class="info-item">
-                <span class="info-label">الاسم:</span>
-                <span class="info-value">${voucher.name}</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">رقم الهاتف:</span>
-                <span class="info-value">${voucher.phone}</span>
-              </div>
-            </div>
-            
-            <div class="voucher-code">
-              ${voucher.code}
-            </div>
-            
-            <div class="amount-cards">
-              <div class="amount-card used">
-                <div class="amount-number">${voucher.usedAmount.toFixed(2)}</div>
-                <div class="amount-label">المبلغ المستخدم (د.ك)</div>
-              </div>
-              <div class="amount-card remaining">
-                <div class="amount-number">${voucher.remainingAmount.toFixed(2)}</div>
-                <div class="amount-label">المبلغ المتبقي (د.ك)</div>
-              </div>
-            </div>
-            
-            <div class="customer-info">
-              <h3>معلومات إضافية</h3>
-              <div class="info-item">
-                <span class="info-label">قيمة القسيمة الأصلية:</span>
-                <span class="info-value">${voucher.totalAmount.toFixed(2)} د.ك</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">تاريخ الإنشاء:</span>
-                <span class="info-value">${formatDate(voucher.createdAt)}</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">عدد الطلبات:</span>
-                <span class="info-value">${(voucher.orders || []).length}</span>
-              </div>
-            </div>
-            
-            <div class="business-name">
-              ${config.business_name}
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderNoVoucher(phone) {
-      return `
-        <div class="container fade-in">
-          <div class="card">
-            <button id="backBtn" class="btn btn-secondary" style="width: auto; margin-bottom: 30px;">
-              ← البحث عن قسيمة أخرى
-            </button>
-            
-            <div class="no-voucher">
-              <div class="no-voucher-icon">❌</div>
-              <h2 style="color: #dc3545; margin-bottom: 15px;">لم يتم العثور على قسيمة</h2>
-              <p style="font-size: 1.1rem; margin-bottom: 20px;">
-                لا توجد قسيمة مرتبطة برقم الهاتف: <strong>${phone}</strong>
-              </p>
-              <p style="color: #6c757d;">
-                تأكد من رقم الهاتف أو تواصل مع المتجر للمساعدة
-              </p>
-            </div>
-            
-            <div class="business-name">
-              ${config.business_name}
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    // Event Handlers
-    function setupSearchEvents() {
-      const phoneInput = document.getElementById('phoneInput');
-      const searchBtn = document.getElementById('searchBtn');
+    function showAlert(message, type = 'error') {
       const errorMsg = document.getElementById('errorMsg');
+      if (!errorMsg.classList.contains('alert')) {
+        errorMsg.className = `alert alert-${type}`;
+      }
+      errorMsg.textContent = message;
+      errorMsg.classList.remove('hidden');
+      
+      setTimeout(() => {
+        errorMsg.classList.add('hidden');
+      }, 5000);
+    }
 
-      phoneInput.addEventListener('input', (e) => {
-        // Convert Arabic numbers to English automatically
-        e.target.value = convertArabicToEnglish(e.target.value);
-        
-        // Remove any non-numeric characters
-        e.target.value = e.target.value.replace(/[^0-9]/g, '');
-        
-        const value = phoneInput.value.trim();
-        if (value.length >= 8) {
-          searchBtn.classList.remove('hidden');
-        } else {
-          searchBtn.classList.add('hidden');
+    // Enhanced Data Operations with Hybrid Sync
+    async function getVoucher(code) {
+      let firebaseData = null;
+      let localData = null;
+
+      // Try to get from Firebase first
+      if (firebaseInitialized) {
+        try {
+          const snapshot = await database.ref('vouchers/' + code).once('value');
+          firebaseData = snapshot.val();
+        } catch (error) {
+          console.warn('Firebase read failed:', error);
         }
+      }
+
+      // Always check localStorage as well
+      try {
+        const data = getLocalData();
+        localData = data[code] || null;
+      } catch (error) {
+        console.warn('localStorage read failed:', error);
+      }
+
+      // Return the most recent data (Firebase takes priority if both exist)
+      if (firebaseData && localData) {
+        const firebaseTime = firebaseData.createdAt || 0;
+        const localTime = localData.createdAt || 0;
+        const firebaseOrders = (firebaseData.orders || []).length;
+        const localOrders = (localData.orders || []).length;
         
-        if (errorMsg && !errorMsg.classList.contains('hidden')) {
-          errorMsg.classList.add('hidden');
+        if (firebaseOrders >= localOrders && firebaseTime >= localTime) {
+          return firebaseData;
+        } else {
+          return localData;
+        }
+      }
+
+      return firebaseData || localData;
+    }
+
+    async function getAllVouchers() {
+      let firebaseVouchers = [];
+      let localVouchers = [];
+
+      // Get from Firebase
+      if (firebaseInitialized) {
+        try {
+          const snapshot = await database.ref('vouchers').once('value');
+          snapshot.forEach(child => {
+            firebaseVouchers.push(child.val());
+          });
+        } catch (error) {
+          console.warn('Firebase read failed:', error);
+        }
+      }
+
+      // Get from localStorage
+      try {
+        const data = getLocalData();
+        localVouchers = Object.values(data);
+      } catch (error) {
+        console.warn('localStorage read failed:', error);
+      }
+
+      // Merge and deduplicate vouchers
+      const allVouchers = new Map();
+      
+      // Add local vouchers first
+      localVouchers.forEach(voucher => {
+        if (voucher && voucher.code) {
+          allVouchers.set(voucher.code, voucher);
         }
       });
 
-      phoneInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && !searchBtn.classList.contains('hidden')) {
+      // Add/update with Firebase vouchers (they take priority)
+      firebaseVouchers.forEach(voucher => {
+        if (voucher && voucher.code) {
+          const existing = allVouchers.get(voucher.code);
+          if (!existing || (voucher.orders || []).length >= (existing.orders || []).length) {
+            allVouchers.set(voucher.code, voucher);
+          }
+        }
+      });
+
+      return Array.from(allVouchers.values()).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+    }
+
+    async function getVouchersByPhone(phone) {
+      const allVouchers = await getAllVouchers();
+      const cleanPhone = phone.replace(/[^0-9]/g, '');
+      
+      return allVouchers.filter(voucher => {
+        if (!voucher.phone) return false;
+        const voucherPhone = voucher.phone.replace(/[^0-9]/g, '');
+        return voucherPhone.includes(cleanPhone) || cleanPhone.includes(voucherPhone);
+      });
+    }
+
+    // Search Functions
+    async function searchByCode(code) {
+      const voucher = await getVoucher(code);
+      return voucher ? [voucher] : [];
+    }
+
+    async function searchByPhone(phone) {
+      return await getVouchersByPhone(phone);
+    }
+
+    // UI Functions
+    function updateSearchMethod(method) {
+      currentSearchMethod = method;
+      
+      // Update active method
+      document.querySelectorAll('.search-method').forEach(el => {
+        el.classList.remove('active');
+      });
+      document.querySelector(`[data-method="${method}"]`).classList.add('active');
+      
+      // Update form
+      const searchLabel = document.getElementById('searchLabel');
+      const searchInput = document.getElementById('searchInput');
+      
+      if (method === 'code') {
+        searchLabel.textContent = 'رمز القسيمة';
+        searchInput.placeholder = 'اكتب رمز القسيمة هنا';
+        searchInput.style.textAlign = 'center';
+        searchInput.maxLength = 4;
+      } else {
+        searchLabel.textContent = 'رقم الهاتف';
+        searchInput.placeholder = 'اكتب رقم الهاتف هنا';
+        searchInput.style.textAlign = 'right';
+        searchInput.maxLength = 15;
+      }
+      
+      searchInput.value = '';
+      document.getElementById('errorMsg').classList.add('hidden');
+    }
+
+    function renderVoucherCard(voucher) {
+      const orders = voucher.orders || [];
+      const isUsedUp = voucher.remainingAmount <= 0;
+      
+      return `
+        <div class="voucher-card">
+          <div class="voucher-header">
+            <div class="voucher-code">${voucher.code}</div>
+            <div class="voucher-status ${isUsedUp ? 'status-used' : 'status-active'}">
+              ${isUsedUp ? 'مستنفدة' : 'نشطة'}
+            </div>
+          </div>
+          
+          <div class="voucher-details">
+            <div class="detail-item">
+              <div class="detail-label">اسم الزبون</div>
+              <div class="detail-value">${voucher.name}</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">رقم الهاتف</div>
+              <div class="detail-value">${voucher.phone}</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">قيمة القسيمة</div>
+              <div class="detail-value">${voucher.totalAmount.toFixed(2)} د.ك</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">المبلغ المستخدم</div>
+              <div class="detail-value" style="color: #dc3545;">${voucher.usedAmount.toFixed(2)} د.ك</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">المبلغ المتبقي</div>
+              <div class="detail-value" style="color: ${voucher.remainingAmount > 0 ? '#28a745' : '#dc3545'};">${voucher.remainingAmount.toFixed(2)} د.ك</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">تاريخ الإنشاء</div>
+              <div class="detail-value" style="font-size: 0.9rem;">${formatDate(voucher.createdAt)}</div>
+            </div>
+          </div>
+          
+          ${orders.length > 0 ? `
+            <div class="orders-section">
+              <div class="orders-header">
+                <h4 style="margin: 0; color: #495057;">سجل الطلبات (${orders.length})</h4>
+              </div>
+              ${orders.map(order => `
+                <div class="order-item">
+                  <div class="order-info">
+                    <div style="font-weight: 600; margin-bottom: 3px;">فاتورة رقم: ${order.invoiceNumber}</div>
+                    <div style="font-size: 0.9rem; color: #6c757d;">
+                      ${order.employeeName} • ${formatDate(order.createdAt)}
+                    </div>
+                  </div>
+                  <div class="order-amount">${order.amount.toFixed(2)} د.ك</div>
+                </div>
+              `).join('')}
+            </div>
+          ` : `
+            <div class="orders-section">
+              <div style="text-align: center; color: #6c757d; padding: 20px;">
+                <div style="font-size: 1.5rem; margin-bottom: 5px;">📋</div>
+                <div>لا توجد طلبات بعد</div>
+              </div>
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    function displayResults(vouchers, searchTerm, searchType) {
+      const resultsSection = document.getElementById('resultsSection');
+      const resultsTitle = document.getElementById('resultsTitle');
+      const vouchersContainer = document.getElementById('vouchersContainer');
+      const statsSection = document.getElementById('statsSection');
+      const newSearchBtn = document.getElementById('newSearchBtn');
+      
+      searchResults = vouchers;
+      
+      if (vouchers.length === 0) {
+        resultsTitle.textContent = 'لا توجد نتائج';
+        vouchersContainer.innerHTML = `
+          <div style="text-align: center; padding: 40px; color: #6c757d;">
+            <div style="font-size: 3rem; margin-bottom: 10px;">🔍</div>
+            <p>لم يتم العثور على أي قسائم ${searchType === 'code' ? 'بهذا الرمز' : 'لهذا الرقم'}</p>
+            <p style="font-size: 0.9rem;">تأكد من ${searchType === 'code' ? 'رمز القسيمة' : 'رقم الهاتف'} وحاول مرة أخرى</p>
+          </div>
+        `;
+        statsSection.classList.add('hidden');
+      } else {
+        if (searchType === 'phone') {
+          resultsTitle.textContent = `قسائم رقم الهاتف: ${searchTerm}`;
+          
+          // Show statistics for multiple vouchers
+          const totalValue = vouchers.reduce((sum, v) => sum + v.totalAmount, 0);
+          const totalUsed = vouchers.reduce((sum, v) => sum + v.usedAmount, 0);
+          
+          document.getElementById('totalVouchers').textContent = vouchers.length;
+          document.getElementById('totalValue').textContent = totalValue.toFixed(2);
+          document.getElementById('totalUsed').textContent = totalUsed.toFixed(2);
+          
+          statsSection.classList.remove('hidden');
+        } else {
+          resultsTitle.textContent = `تفاصيل القسيمة: ${searchTerm}`;
+          statsSection.classList.add('hidden');
+        }
+        
+        vouchersContainer.innerHTML = vouchers.map(voucher => renderVoucherCard(voucher)).join('');
+      }
+      
+      resultsSection.classList.remove('hidden');
+      newSearchBtn.classList.remove('hidden');
+      
+      // Hide search section
+      document.querySelector('.search-section').style.display = 'none';
+    }
+
+    function resetSearch() {
+      document.getElementById('resultsSection').classList.add('hidden');
+      document.getElementById('newSearchBtn').classList.add('hidden');
+      document.querySelector('.search-section').style.display = 'block';
+      document.getElementById('searchInput').value = '';
+      document.getElementById('errorMsg').classList.add('hidden');
+      searchResults = [];
+    }
+
+    // Event Handlers
+    function setupEvents() {
+      // Search method selection
+      document.querySelectorAll('.search-method').forEach(method => {
+        method.addEventListener('click', () => {
+          updateSearchMethod(method.dataset.method);
+        });
+      });
+
+      // Search input
+      const searchInput = document.getElementById('searchInput');
+      const searchBtn = document.getElementById('searchBtn');
+      
+      searchInput.addEventListener('input', (e) => {
+        e.target.value = convertArabicToEnglish(e.target.value);
+        document.getElementById('errorMsg').classList.add('hidden');
+      });
+
+      searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
           searchBtn.click();
         }
       });
 
+      // Search button
       searchBtn.addEventListener('click', async () => {
-        const phone = phoneInput.value.trim();
-        if (!phone || phone.length < 8) {
-          showError('يرجى إدخال رقم هاتف صحيح (8 أرقام على الأقل)');
+        const searchTerm = searchInput.value.trim();
+        
+        if (!searchTerm) {
+          showAlert('يرجى إدخال ' + (currentSearchMethod === 'code' ? 'رمز القسيمة' : 'رقم الهاتف'));
+          return;
+        }
+
+        if (currentSearchMethod === 'code' && searchTerm.length !== 4) {
+          showAlert('رمز القسيمة يجب أن يكون مكون من 4 أرقام');
           return;
         }
 
@@ -651,111 +941,50 @@
         searchBtn.innerHTML = '<span class="loading"></span> جاري البحث...';
 
         try {
-          const voucher = await getVoucherByPhone(phone);
+          let results = [];
           
-          if (voucher) {
-            currentVoucher = voucher;
-            currentView = 'details';
+          if (currentSearchMethod === 'code') {
+            results = await searchByCode(searchTerm);
           } else {
-            currentView = 'no-voucher';
-            currentVoucher = { phone }; // Store phone for display
+            results = await searchByPhone(searchTerm);
           }
           
-          render();
+          displayResults(results, searchTerm, currentSearchMethod);
+          
         } catch (error) {
-          showError('حدث خطأ في البحث. حاول مرة أخرى.');
           console.error('Search error:', error);
+          showAlert('حدث خطأ في البحث. حاول مرة أخرى.');
         }
 
         searchBtn.disabled = false;
-        searchBtn.textContent = 'البحث عن القسيمة';
+        searchBtn.textContent = 'بحث';
       });
 
-      // Focus on input when page loads
-      setTimeout(() => phoneInput.focus(), 100);
-    }
+      // New search button
+      document.getElementById('newSearchBtn').addEventListener('click', resetSearch);
 
-    function setupDetailsEvents() {
-      const backBtn = document.getElementById('backBtn');
-      
-      backBtn.addEventListener('click', () => {
-        currentView = 'search';
-        currentVoucher = null;
-        render();
+      // Print button
+      document.getElementById('printBtn').addEventListener('click', () => {
+        window.print();
       });
-    }
-
-    function setupNoVoucherEvents() {
-      const backBtn = document.getElementById('backBtn');
-      
-      backBtn.addEventListener('click', () => {
-        currentView = 'search';
-        currentVoucher = null;
-        render();
-      });
-    }
-
-    function showError(message) {
-      const errorMsg = document.getElementById('errorMsg');
-      if (errorMsg) {
-        if (!errorMsg.classList.contains('alert')) {
-          errorMsg.className = 'alert alert-error';
-        }
-        errorMsg.textContent = message;
-        errorMsg.classList.remove('hidden');
-      }
-    }
-
-    // Main Render Function
-    function render() {
-      const app = document.getElementById('app');
-      
-      try {
-        if (currentView === 'search') {
-          app.innerHTML = renderSearch();
-          setupSearchEvents();
-        } else if (currentView === 'details' && currentVoucher) {
-          app.innerHTML = renderVoucherDetails(currentVoucher);
-          setupDetailsEvents();
-        } else if (currentView === 'no-voucher' && currentVoucher) {
-          app.innerHTML = renderNoVoucher(currentVoucher.phone);
-          setupNoVoucherEvents();
-        }
-      } catch (error) {
-        console.error('Render error:', error);
-        app.innerHTML = `
-          <div class="container">
-            <div class="card">
-              <div class="alert alert-error">
-                حدث خطأ في تحميل الصفحة. يرجى إعادة تحميل الصفحة.
-              </div>
-            </div>
-          </div>
-        `;
-      }
-    }
-
-    // Configuration update function
-    function updateConfig(newConfig) {
-      config = { ...config, ...newConfig };
-      
-      const appTitle = document.getElementById('app-title');
-      if (appTitle) {
-        appTitle.textContent = config.app_title;
-      }
     }
 
     // Initialize Application
     document.addEventListener('DOMContentLoaded', () => {
-      render();
+      setupEvents();
+      updateSearchMethod('code'); // Set default search method
     });
 
     // Initialize immediately if DOM is already loaded
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', render);
+      document.addEventListener('DOMContentLoaded', () => {
+        setupEvents();
+        updateSearchMethod('code');
+      });
     } else {
-      render();
+      setupEvents();
+      updateSearchMethod('code');
     }
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'999cd2cf526223e5',t:'MTc2MjM1MDY2MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'999cef5ff32ed5f6',t:'MTc2MjM1MTgzMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
